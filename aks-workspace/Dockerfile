@@ -3,6 +3,10 @@ FROM python:3.8-slim-buster
 RUN apt-get update
 RUN apt-get install -y git dos2unix unzip npm wget curl iputils-ping
 
+
+WORKDIR /app
+COPY . /app
+
 RUN pip install -r requirements.txt
 
 WORKDIR /files
@@ -36,8 +40,6 @@ RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s
 
 RUN ls -al
 
-WORKDIR /app
-COPY . /app
 
 # Make all shell scripts default executable
 WORKDIR /git
