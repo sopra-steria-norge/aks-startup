@@ -1,0 +1,65 @@
+name: $(Date:yyyyMMdd)$(Rev:.r)
+
+# Load secrets from Library and the Key Vault
+variables:
+  - group: aks-startup
+  - name: tfFolder  # Name of folder to run terraform commands
+    value: keyvault
+  - name: workingDirectoryFolder  # Name of folder to run terraform commands
+    value: $(System.DefaultWorkingDirectory)/$(tfFolder)/
+
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - keyvault/*
+
+pool: Default
+
+steps:
+  - script: ls '$(System.DefaultWorkingDirectory)'
+  
+  - bash: |
+      ls -al
+    displayName: List files in $(workingDirectoryFolder)
+    workingDirectory: $(workingDirectoryFolder)
+    failOnStderr: true
+  
+  - bash: |
+      echo "terraform init" /
+      terraform init -input=false
+    displayName: Terraform Init
+    workingDirectory: $(workingDirectoryFolder)
+    failOnStderr: true
+    env:
+      ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+      ARM_CLIENT_ID:       $(ARM_CLIENT_ID)
+      ARM_CLIENT_SECRET:   $(ARM_CLIENT_SECRET)
+      ARM_TENANT_ID:       $(ARM_TENANT_ID)
+  
+  - bash: |
+      echo "terraform plan" /
+      terraform plan -input=false
+    displayName: Terraform Plan
+    workingDirectory: $(workingDirectoryFolder)
+    failOnStderr: true
+    env:
+      ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+      ARM_CLIENT_ID:       $(ARM_CLIENT_ID)
+      ARM_CLIENT_SECRET:   $(ARM_CLIENT_SECRET)
+      ARM_TENANT_ID:       $(ARM_TENANT_ID)
+  
+  - bash: |
+      echo "terraform apply" /
+      terraform apply -auto-approve -input=false
+    displayName: Terraform Apply
+    workingDirectory: $(workingDirectoryFolder)
+    failOnStderr: true
+    env:
+      ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+      ARM_CLIENT_ID:       $(ARM_CLIENT_ID)
+      ARM_CLIENT_SECRET:   $(ARM_CLIENT_SECRET)
+      ARM_TENANT_ID:       $(ARM_TENANT_ID)
+  

@@ -1,0 +1,32 @@
+name: $(Date:yyyyMMdd)$(Rev:.r)
+
+variables:
+  - group: aks-startup
+
+# Only run manually
+trigger: none
+
+# trigger:
+#   branches:
+#     include:
+#     - master
+#   paths:
+#     include:
+#     - clean-up-all/*
+
+pool: Default
+
+steps:
+- script: ls '$(System.DefaultWorkingDirectory)'
+
+- task: Bash@3
+  displayName: clean_up_all.sh
+  inputs:
+    targetType: 'filePath'
+    filePath: $(System.DefaultWorkingDirectory)/clean-up-all/clean_up_all.sh
+    failOnStderr: false
+  env:
+    ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+    ARM_CLIENT_ID:       $(ARM_CLIENT_ID)
+    ARM_CLIENT_SECRET:   $(ARM_CLIENT_SECRET)
+    ARM_TENANT_ID:       $(ARM_TENANT_ID)
