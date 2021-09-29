@@ -1,0 +1,45 @@
+version: '3.9'
+
+services:
+  aksstartup-workspace-1:
+    image: acr001.azurecr.io/aksstartup-workspace:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        GITHUB_TOKEN: ${GITHUB_TOKEN}      
+        AKSSTARTUP_AZURE_DEVOPS_TOKEN: ${AKSSTARTUP_AZURE_DEVOPS_TOKEN}
+    restart: always
+    container_name: aksstartup-workspace-1
+    environment:
+      - EXAMPLE_CONFIG=/test/test
+      - DOTNET_CLI_TELEMETRY_OPTOUT=1
+      - KUBECONFIG=/kubeconfig/config
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - AKSSTARTUP_AZURE_DEVOPS_TOKEN=${AKSSTARTUP_AZURE_DEVOPS_TOKEN}
+      - AZP_URL=${AZP_URL}
+      - AZP_TOKEN=${AZP_TOKEN}
+      - ARM_CLIENT_ID=${ARM_CLIENT_ID}
+      - ARM_CLIENT_SECRET=${ARM_CLIENT_SECRET}
+      - ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID}
+      - ARM_TENANT_ID=${ARM_TENANT_ID}
+      # - GPG_TTY=/dev/pts/3
+      # - GCM_CREDENTIAL_STORE=cache
+      # - GCM_CREDENTIAL_CACHE_OPTIONS="--timeout 9999999"
+    volumes:
+      - git_repositories:/git      
+      - "vscode_server_extensions:/root/.vscode-server/extensions"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./scripts/secrets/kubeconfig:/kubeconfig/config"
+    # ports: 
+    #   - 5003:5003
+    networks:
+      - aksstartup_common_network
+networks:
+  aksstartup_common_network:
+    name: aksstartup_common_network
+    external: true
+
+volumes:
+  git_repositories: {}    
+  vscode_server_extensions: {}
