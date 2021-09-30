@@ -1,14 +1,34 @@
 #!/bin/bash
 
+
+####################################
+##### Usage: This is not yet really a script. 
+##### Copy and paste each cmd into terminal and run ####
+####################################
+
+
 # https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli
 
 az login --tenant <tenant_id>
 
 az ad sp create-for-rbac --name aks_startup_app_services
 
-az role assignment create --assignee <tenant_id> --role Owner
+# This will produce an output similar to this:
+# {
+#   "appId": "6cd93b1e-14d2-417a-abae-6b7c23173b92",
+#   "displayName": "aks_startup_app_services",
+#   "name": "6cd93b1e-14d2-417a-abae-6b7c23173b92",
+#   "password": "myverysecretsecret",
+#   "tenant": "94ce5a37-6c1e-4cce-aaeb-3f20b96ab1af"
+# }
 
-az login --service-principal --username <user_id> --tenant <tenant_id>  --password PASSWORD
+
+az role assignment create --assignee <client_id> --role Owner
+> az role assignment create --assignee 6cd93b1e-14d2-417a-abae-6b7c23173b92 --role Owner
+
+
+az login --service-principal --username <client_id> --tenant <tenant_id>  --password PASSWORD
+> az login --service-principal --username 6cd93b1e-14d2-417a-abae-6b7c23173b92 --tenant 94ce5a37-6c1e-4cce-aaeb-3f20b96ab1af  --password myverysecretsecret
 
 # https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-user-delegation-sas-create-cli
 
@@ -17,7 +37,17 @@ az role assignment create \
     --assignee <assignee email or client id> \
     --scope "/subscriptions/<subscription>/resourceGroups/aks-startup-d-rg-aks-infrastructure-shared/providers/Microsoft.Storage/storageAccounts/aksstartupstorage"
 
+> az role assignment create \
+    --role "Storage Blob Data Contributor" \
+    --assignee 6cd93b1e-14d2-417a-abae-6b7c23173b92 \
+    --scope "/subscriptions/<subscription>/resourceGroups/aks-startup-d-rg-aks-infrastructure-shared/providers/Microsoft.Storage/storageAccounts/aksstartupstorage"
+
+
+
+
 az role assignment list --assignee <tenant_id>
+
+> az role assignment list --assignee 94ce5a37-6c1e-4cce-aaeb-3f20b96ab1af
 
 # Create Service Connection to ACR
 # https://docs.microsoft.com/en-us/azure/devops/cli/service-endpoint?view=azure-devops#create-service-endpoint-using-configuration-file
