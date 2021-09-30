@@ -14,7 +14,7 @@ ARM_SUBSCRIPTION_ID
 ARM_TENANT_ID
 ```
 
-docker-compose.yml filen bruker disse til å koble Terraform i containeren til Azure tenant
+[docker-compose.yml](aks-workspace\docker-compose.yml) som starter utviklingsmiljøet bruker disse environment variablene til å koble Terraform til Azure tenanten
 
 ## Kjør terraform mot Azure tenant ##
 
