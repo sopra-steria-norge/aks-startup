@@ -2,3 +2,5 @@ env/
 .venv/
 venv/
 .idea/
+scripts/secrets/kubeconfig
+kubeconfig
