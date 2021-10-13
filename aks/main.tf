@@ -1,22 +1,21 @@
-# Container Registry
+# Setting up AKS and Container registry
 
-
-terraform {
-  backend "azurerm" {
-    resource_group_name  = "aks-startup-d-rg-aks-infrastructure-shared"
-    storage_account_name = "aksstartupstorage"
-    container_name       = "terraform"
-    key                  = "aks-startup-tf-aks"
-    subscription_id      = "${var.ARM_SUBSCRIPTION_ID}" // Dette fungerte ikke
-  }
-}
-
-provider "azurerm" {
-  features {}
+variable "AKS_STARTUP_ACR_NAME" {
+  type    = string
+  default = "https://aksstartup.azurecr.io"
 }
 
 data "azurerm_resource_group" "main" {
-  name     = "aks-startup-d-rg-aks-infrastructure"
+  name = "aks-startup-rg"
+}
+
+resource "azurerm_container_registry" "main" {
+  name                = var.AKS_STARTUP_ACR_NAME
+  location            = data.azurerm_resource_group.main.location
+  resource_group_name = data.azurerm_resource_group.main.name
+  sku                 = "Standard"
+  admin_enabled       = false
+  provider            = azurerm.dev
 }
 
 resource "azurerm_kubernetes_cluster" "main" {
@@ -34,4 +33,5 @@ resource "azurerm_kubernetes_cluster" "main" {
   identity {
     type = "SystemAssigned"
   }
+  provider = azurerm.dev
 }

@@ -39,12 +39,12 @@ az login --service-principal --username <client_id> --tenant <tenant_id>  --pass
 az role assignment create \
     --role "Storage Blob Data Contributor" \
     --assignee <assignee email or client id> \
-    --scope "/subscriptions/<subscription>/resourceGroups/aks-startup-d-rg-aks-infrastructure-shared/providers/Microsoft.Storage/storageAccounts/aksstartupstorage"
+    --scope "/subscriptions/<subscription>/resourceGroups/aks-startup-rg/providers/Microsoft.Storage/storageAccounts/aksstartupsttfstate"
 
 > az role assignment create \
     --role "Storage Blob Data Contributor" \
     --assignee 6cd93b1e-14d2-417a-abae-6b7c23173b92 \
-    --scope "/subscriptions/<subscription>/resourceGroups/aks-startup-d-rg-aks-infrastructure-shared/providers/Microsoft.Storage/storageAccounts/aksstartupstorage"
+    --scope "/subscriptions/<subscription>/resourceGroups/aks-startup-rg/providers/Microsoft.Storage/storageAccounts/aksstartupsttfstate"
 
 
 

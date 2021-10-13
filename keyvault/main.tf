@@ -1,29 +1,9 @@
 # Azure Key Vault
 
-
-terraform {
-  backend "azurerm" {
-    resource_group_name  = "aks-startup-d-rg-aks-infrastructure-shared"
-    storage_account_name = "aksstartupstorage"
-    container_name       = "terraform"
-    key                  = "aks-startup-tf-aks-keyvault"
-    subscription_id      = "${var.ARM_SUBSCRIPTION_ID}"
-  }
-}
-
-provider "azurerm" {
-  features {
-    key_vault {
-      recover_soft_deleted_key_vaults = true
-      purge_soft_delete_on_destroy = true
-    }
-  }
-}
-
 data "azurerm_client_config" "main" {}
 
 data "azurerm_resource_group" "main" {
-  name = "aks-startup-d-rg-aks-infrastructure"
+  name = "aks-startup-rg"
 }
 
 resource "azurerm_key_vault" "main" {

@@ -24,25 +24,25 @@ az login --service-principal --username ${ARM_CLIENT_ID} --tenant ${ARM_TENANT_I
 
 az account show
 
-# az group create --name aks-startup-d-rg-aks-infrastructure --location norwayeast --subscription ${ARM_SUBSCRIPTION_ID}
+# az group create --name aks-startup-rg --location norwayeast --subscription ${ARM_SUBSCRIPTION_ID}
 
-# az group exists --name aks-startup-d-rg-aks-infrastructure --subscription ${ARM_SUBSCRIPTION_ID}
+# az group exists --name aks-startup-rg --subscription ${ARM_SUBSCRIPTION_ID}
 
-group_infrastructure_exists=$(az group exists --name aks-startup-d-rg-aks-infrastructure --subscription ${ARM_SUBSCRIPTION_ID})
+group_infrastructure_exists=$(az group exists --name aks-startup-rg --subscription ${ARM_SUBSCRIPTION_ID})
 echo "group_infrastructure_exists => $group_infrastructure_exists"
 
 ## Beware of the whitespace after '[' and before ']'
 if [ $group_infrastructure_exists = "true" ] ; then
-    echo "** Deleting aks-startup-d-rg-aks-infrastructure **"
-    az group delete --name aks-startup-d-rg-aks-infrastructure --subscription ${ARM_SUBSCRIPTION_ID} --yes --verbose
+    echo "** Deleting aks-startup-rg **"
+    az group delete --name aks-startup-rg --subscription ${ARM_SUBSCRIPTION_ID} --yes --verbose
 fi
 
-group_shared_exists=$(az group exists --name aks-startup-d-rg-aks-infrastructure-shared --subscription ${ARM_SUBSCRIPTION_ID})
+group_shared_exists=$(az group exists --name aks-startup-rg --subscription ${ARM_SUBSCRIPTION_ID})
 echo "group_shared_exists => $group_shared_exists"
 
 if [ $group_shared_exists == "true" ] ; then
-    echo "** Deleting aks-startup-d-rg-aks-infrastructure-shared **"
-    az group delete --name aks-startup-d-rg-aks-infrastructure-shared --subscription ${ARM_SUBSCRIPTION_ID} --yes --verbose
+    echo "** Deleting aks-startup-rg **"
+    az group delete --name aks-startup-rg --subscription ${ARM_SUBSCRIPTION_ID} --yes --verbose
 fi
 
 #### Exit with great success
