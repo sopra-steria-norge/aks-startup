@@ -16,59 +16,55 @@ WORKDIR /files
 ARG docker_latest_version_file_arg="docker-19.03.2.tgz"
 ENV DOCKER_LATEST_VERSION_FILE=${docker_latest_version_file_arg}
 RUN echo "Download => https://download.docker.com/linux/static/stable/x86_64/${DOCKER_LATEST_VERSION_FILE}"
-RUN curl -fL https://download.docker.com/linux/static/stable/x86_64/${DOCKER_LATEST_VERSION_FILE} -o docker.tgz
+RUN curl -fL https://download.docker.com/linux/static/stable/x86_64/${DOCKER_LATEST_VERSION_FILE} -o docker.tgz && \ 
+    tar --strip-components=1 -xvzf docker.tgz -C /usr/local/bin
 
 ##############################################
 ### Terraform
 #############################################
 ARG TERRAFORM_VERSION=0.14.6
 RUN echo "Download => https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
-RUN curl -fL https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -o terraform_linux_amd64.zip
+RUN curl -fL https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -o terraform_linux_amd64.zip && \
+    unzip -q terraform_linux_amd64.zip -d /usr/bin && \
+    terraform --version
 
 ##############################################
 ### tflint
 #############################################
 ARG TFLINT_VERSION=0.24.1
 RUN echo "Download =>   v${TFLINT_VERSION}/tflint_linux_amd64.zip"
-RUN curl -fL https://github.com/terraform-linters/tflint/releases/download/v${TFLINT_VERSION}/tflint_linux_amd64.zip -o tflint.zip
+RUN curl -fL https://github.com/terraform-linters/tflint/releases/download/v${TFLINT_VERSION}/tflint_linux_amd64.zip -o tflint.zip  && \
+    unzip -q tflint.zip -d /usr/bin && \
+    tflint --version
 
 ##############################################
 ### kubectl - latest
 #############################################
 RUN echo "Download =>   https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
-RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && \
+    chmod +x ./kubectl && \
+    mv ./kubectl /usr/local/bin
+
+##############################################
+### helm 3 - latest
+#############################################
+RUN echo "Download =>   https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 && \
+    chmod +x get_helm.sh && ./get_helm.sh
 
 RUN ls -al
 
+RUN rm *
+
+################################################################################
+### Make all shell scripts default executable
+################################################################################
 
 # Make all shell scripts default executable
 WORKDIR /git
 RUN find . -name "*.sh" -print && \
     find /app -name "*.sh" -execdir chmod u+x {} +
 
-################################################################################
-### Install stuff from filecontainer
-################################################################################
-
-WORKDIR /files
-
-RUN ls -al
-
-# Docker CLI
-RUN tar --strip-components=1 -xvzf docker.tgz -C /usr/local/bin
-
-# Get the Terraform files. Get newer version from: https://www.terraform.io/downloads.html
-RUN unzip -q terraform_linux_amd64.zip -d /usr/bin && \
-    terraform --version
-
-RUN unzip -q tflint.zip -d /usr/bin && \
-    tflint --version
-
-# kubectl
-RUN chmod +x ./kubectl && \
-    mv ./kubectl /usr/local/bin
-
-RUN rm *
 
 ################################################################################
 ### Add Azure CLI extensions
