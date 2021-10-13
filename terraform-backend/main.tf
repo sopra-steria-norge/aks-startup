@@ -13,7 +13,7 @@ resource "azurerm_resource_group" "main" {
 }
 
 resource "azurerm_storage_account" "main" {
-  name                     = "aksstartupstorage"
+  name                     = "aksstartupstorage" // Denne må være global unik i hele Azure
   resource_group_name      = azurerm_resource_group.main.name
   location                 = azurerm_resource_group.main.location
   account_tier             = "Standard"

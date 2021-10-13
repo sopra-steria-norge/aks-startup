@@ -4,6 +4,8 @@ echo GITHUB_TOKEN: %GITHUB_TOKEN%
 
 COPY "%USERPROFILE%\.kube\config" "%~dp0\scripts\secrets\kubeconfig"
 
+docker swarm init
+
 docker rm -f aksstartup-workspace-1
 
 docker-compose -f docker-compose.yml down --remove-orphans

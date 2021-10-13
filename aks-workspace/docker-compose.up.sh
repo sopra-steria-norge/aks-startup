@@ -3,6 +3,8 @@ BASEDIR=$(dirname "$0")
 echo "$BASEDIR"
 cd $BASEDIR
 
+docker swarm init
+
 docker rm -f aksstartup-workspace-1
 docker-compose -f docker-compose.yml down --remove-orphans
 

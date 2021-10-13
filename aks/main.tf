@@ -7,7 +7,7 @@ terraform {
     storage_account_name = "aksstartupstorage"
     container_name       = "terraform"
     key                  = "aks-startup-tf-aks"
-    subscription_id      = "${var.ARM_SUBSCRIPTION_ID}"
+    subscription_id      = "${var.ARM_SUBSCRIPTION_ID}" // Dette fungerte ikke
   }
 }
 
