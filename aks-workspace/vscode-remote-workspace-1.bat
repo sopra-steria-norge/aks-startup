@@ -3,7 +3,14 @@ echo Open Visual Studio Code Remote
 
 docker network create -d overlay --attachable aksstartup_common_network
 
-docker-compose -f docker-compose.yml up -d
+REM Check if env-file exist, then use this. 
+IF EXIST "../../aks-startup-config/.env" (
+  echo "aks-startup-config/.env exist"
+  docker-compose -f docker-compose.yml --env-file ../../aks-startup-config/.env up -d
+) ELSE (
+  echo "using local env-file"
+  docker-compose -f docker-compose.yml up -d
+)
 
 @REM Copy git clone all script to the container
 docker cp clone-all.sh aksstartup-workspace-1:/git
