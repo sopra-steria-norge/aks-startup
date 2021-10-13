@@ -3,6 +3,8 @@ echo Open Visual Studio Code Remote
 
 docker network create -d overlay --attachable aksstartup_common_network
 
+COPY "%USERPROFILE%\.kube\config" "%~dp0\scripts\secrets\kubeconfig"
+
 REM Check if env-file exist, then use this. 
 IF EXIST "../../aks-startup-config/.env" (
   echo "aks-startup-config/.env exist"

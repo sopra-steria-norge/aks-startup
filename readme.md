@@ -3,6 +3,7 @@
 ## Opprett Service Principal i Azure ##
 
 1. Lag Storage Account via Terraform script
+
 ```
 cd terraform-backend
 az login
@@ -54,7 +55,6 @@ az role assignment create \
 
 Gå inn i **aks-workspace** og kjør **vscode-remote-workspace-1.bat**
 
-
 ## Konfigurer ENV på lokal maskin
 
 ```
@@ -77,6 +77,7 @@ ARM_TENANT_ID
 Terraform er delt opp seperate kataloger slik at det er mulig å kjøre terraform direkte i hver sin katalog.
 
 F.eks. i katalogen **terraform-backend**
+
 ```
 az login --tenant <tenant_id>
 tf init

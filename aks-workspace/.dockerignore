@@ -3,4 +3,6 @@ env/
 venv/
 .idea/
 scripts/secrets/kubeconfig
+scripts/secrets/kubeconfig/*
 kubeconfig
+config

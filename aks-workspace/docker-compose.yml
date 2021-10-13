@@ -28,7 +28,7 @@ services:
       - git_repositories:/git      
       - "vscode_server_extensions:/root/.vscode-server/extensions"
       - "/var/run/docker.sock:/var/run/docker.sock"
-      - "./scripts/secrets/kubeconfig:/kubeconfig/config"
+      - "./scripts/secrets/kubeconfig:/kubeconfig"
     # ports: 
     #   - 5003:5003
     networks:
