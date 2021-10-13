@@ -1,5 +1,55 @@
 # Terraform for å komme i gang med Azure Kubernetes Service #
 
+## Opprett Service Principal i Azure ##
+
+1. Lag Storage Account via Terraform script
+```
+cd terraform-backend
+az login
+tf init
+tf apply -input=false -auto-approve
+```
+
+2. Lag Service Principal
+
+```
+az login --tenant <tenant_id>
+
+az ad sp create-for-rbac --name aks_startup_sp
+
+# This will produce an output similar to this:
+# {
+#   "appId": "6cd93b1e-14d2-417a-abae-6b7c23173b92",
+#   "displayName": "aks_startup_app_services",
+#   "name": "6cd93b1e-14d2-417a-abae-6b7c23173b92",
+#   "password": "myverysecretsecret",
+#   "tenant": "94ce5a37-6c1e-4cce-aaeb-3f20b96ab1af"
+# }
+
+# ARM_CLIENT_ID=6cd93b1e-14d2-417a-abae-6b7c23173b92
+# ARM_CLIENT_SECRET=myverysecretsecret
+# ARM_SUBSCRIPTION_ID=22481158-8cb8-4597-be0c-4913204b4544
+# ARM_TENANT_ID=94ce5a37-6c1e-4cce-aaeb-3f20b96ab1af
+
+```
+
+3. Legg til rolle for ressursen
+
+```
+az role assignment create --assignee $ARM_CLIENT_ID --role Owner
+```
+
+Kan også settes kun til Resource Group.
+
+4. Legg til rolle for Storage Account
+
+```
+az role assignment create \
+    --role "Storage Blob Data Contributor" \
+    --assignee $ARM_CLIENT_ID \
+    --scope "/subscriptions/$ARM_SUBSCRIPTION_ID/resourceGroups/aks-startup-rg/providers/Microsoft.Storage/storageAccounts/aksstartupsttfstate"
+```
+
 ## Start utviklingsmiljø i container ##
 
 Gå inn i **aks-workspace** og kjør **vscode-remote-workspace-1.bat**

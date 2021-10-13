@@ -27,8 +27,7 @@ az ad sp create-for-rbac --name aks_startup_sp
 # ARM_SUBSCRIPTION_ID=22481158-8cb8-4597-be0c-4913204b4544
 # ARM_TENANT_ID=94ce5a37-6c1e-4cce-aaeb-3f20b96ab1af
 
-az role assignment create --assignee <client_id> --role Owner
-> az role assignment create --assignee 6cd93b1e-14d2-417a-abae-6b7c23173b92 --role Owner
+az role assignment create --assignee $ARM_CLIENT_ID --role Owner
 
 echo $ARM_CLIENT_ID
 
