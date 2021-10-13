@@ -1,4 +1,4 @@
 provider "azurerm" {
-  alias = "dev"
   features {}
+  alias = "dev"
 }

@@ -2,11 +2,12 @@
 
 variable "AKS_STARTUP_ACR_NAME" {
   type    = string
-  default = "https://aksstartup.azurecr.io"
+  default = "aksstartup"
 }
 
 data "azurerm_resource_group" "main" {
   name = "aks-startup-rg"
+  provider            = azurerm.dev
 }
 
 resource "azurerm_container_registry" "main" {
