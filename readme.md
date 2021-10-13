@@ -14,6 +14,10 @@ ARM_SUBSCRIPTION_ID
 ARM_TENANT_ID
 ```
 
+1. Lag mappe på utsiden av roten til "aks-startup" med navn "aks-startup-config"
+2. Kopier "aks-workspace/.env" filen til denne katalogen
+3. Start **aks-workspace** med "aks-workspace/docker-compose.up.bat"
+
 [docker-compose.yml](aks-workspace\docker-compose.yml) som starter utviklingsmiljøet bruker disse environment variablene til å koble Terraform til Azure tenanten
 
 ## Kjør terraform mot Azure tenant ##
