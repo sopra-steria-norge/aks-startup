@@ -51,9 +51,13 @@ az role assignment create \
     --scope "/subscriptions/$ARM_SUBSCRIPTION_ID/resourceGroups/aks-startup-rg/providers/Microsoft.Storage/storageAccounts/aksstartupsttfstate"
 ```
 
+
+
 ## Start utviklingsmiljø i container ##
 
-Gå inn i **aks-workspace** og kjør **vscode-remote-workspace-1.bat**
+- Gå inn i **aks-workspace** og kjør **vscode-remote-workspace-1.bat**
+
+
 
 ## Konfigurer ENV på lokal maskin
 
@@ -69,6 +73,8 @@ ARM_TENANT_ID
 3. Start **aks-workspace** med "aks-workspace/docker-compose.up.bat"
 
 [docker-compose.yml](aks-workspace\docker-compose.yml) som starter utviklingsmiljøet bruker disse environment variablene til å koble Terraform til Azure tenanten
+
+
 
 ## Kjør terraform mot Azure tenant ##
 
