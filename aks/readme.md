@@ -32,13 +32,14 @@ Den ser typisk slik ut:
 
 Dette vil konfigurere din lokale "**kubectl**" installasjon og gjøre det mulig å snakke med **AKS-startup** instansen.
 
+4 - List deployments i AKS-Startup
 
+```bash
+az login
+az account set --subscription 22481158-8cb8-4597-be0c-4913204b4544
+az aks get-credentials --resource-group aks-startup-rg --name aks-startup
+kubectl get deployments --all-namespaces=true
+```
 
-
-
-
-
-
-
-
+- Bytt ut subscription med din egen. (Relax, subscription over finnes ikke.)
 
