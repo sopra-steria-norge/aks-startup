@@ -5,7 +5,7 @@ docker network create -d overlay --attachable aksstartup_common_network
 
 COPY "%USERPROFILE%\.kube\config" "%~dp0\scripts\secrets\kubeconfig"
 
-REM Check if env-file exist, then use this. 
+REM Use external env-file if it exist
 IF EXIST "../../aks-startup-config/.env" (
   echo "aks-startup-config/.env exist"
   docker-compose -f docker-compose.yml --env-file ../../aks-startup-config/.env up -d

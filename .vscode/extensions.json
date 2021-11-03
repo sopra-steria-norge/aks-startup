@@ -4,5 +4,6 @@
 		"rogalmic.bash-debug",
 		"HashiCorp.terraform",
 		"ms-azuretools.vscode-azureterraform",
+		"mikestead.dotenv",
 	]
 }
