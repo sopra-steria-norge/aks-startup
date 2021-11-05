@@ -26,8 +26,6 @@ Den ser typisk slik ut:
 
 ![image-20211103112813312](wiki/images/image-20211103112813312.png)
 
-
-
 3 - Trykk på "**Connect**" og kjør kommandoene
 
 ![image-20211103112915741](wiki/images/image-20211103112915741.png)
@@ -44,4 +42,3 @@ kubectl get deployments --all-namespaces=true
 ```
 
 - Bytt ut subscription med din egen. (Relax, subscription over finnes ikke.)
-
