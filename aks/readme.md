@@ -1,5 +1,7 @@
 # Start AKS-Startup instansen #
 
+Denne Terraform koden legger til Azure Container Registry (ACR) og Azure Kubernetes Service (AKS).
+
 Forhåndkrav:
 
 - [Terraform oppsett](..\readme.md)
