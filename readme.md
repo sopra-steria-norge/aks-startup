@@ -1,5 +1,7 @@
 # Terraform for å komme i gang med Azure Kubernetes Service #
 
+
+
 ## Opprett Service Principal i Azure ##
 
 1 - Lag Storage Account via Terraform script
@@ -55,13 +57,15 @@ az role assignment create \
     --scope "/subscriptions/$ARM_SUBSCRIPTION_ID/resourceGroups/aks-startup-rg/providers/Microsoft.Storage/storageAccounts/aksstartupsttfstate"
 ```
 
+
+
 ## Start utviklingsmiljø i container ##
 
 - Gå inn i **aks-workspace** og kjør **vscode-remote-workspace-1.bat**
 
 ## Konfigurer ENV på lokal maskin ##
 
-```
+```bash
 ARM_CLIENT_ID
 ARM_CLIENT_SECRET
 ARM_SUBSCRIPTION_ID
@@ -73,6 +77,8 @@ ARM_TENANT_ID
 3. Start **aks-workspace** med "aks-workspace/docker-compose.up.bat"
 
 [docker-compose.yml](aks-workspace\docker-compose.yml) som starter utviklingsmiljøet bruker disse environment variablene til å koble Terraform til Azure tenanten
+
+
 
 ## Kjør terraform mot Azure tenant ##
 
@@ -89,5 +95,8 @@ terraform plan -input=false
 tf apply -input=false -auto-approve
 ```
 
-## Koble kubectl til aks-startup ##
 
+
+## Start Azure Kubernetes Service (AKS) ##
+
+[Start AKS](aks\readme.md)
