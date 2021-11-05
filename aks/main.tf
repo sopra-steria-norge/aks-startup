@@ -15,7 +15,7 @@ resource "azurerm_container_registry" "main" {
   location            = data.azurerm_resource_group.main.location
   resource_group_name = data.azurerm_resource_group.main.name
   sku                 = "Standard"
-  admin_enabled       = false
+  admin_enabled       = true
   provider            = azurerm.dev
 }
 
