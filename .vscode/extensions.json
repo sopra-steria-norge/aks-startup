@@ -5,5 +5,6 @@
 		"HashiCorp.terraform",
 		"ms-azuretools.vscode-azureterraform",
 		"mikestead.dotenv",
+		"ziyasal.vscode-open-in-github",
 	]
 }
