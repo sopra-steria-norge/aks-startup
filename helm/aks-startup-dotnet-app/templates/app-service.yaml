@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: aks-startup-app
+  name: aks-startup-app
+spec:
+  ports:
+    - protocol: "TCP"
+      port: 80
+      targetPort: 5000
+  selector:
+    app: aks-startup-app
+  type: LoadBalancer

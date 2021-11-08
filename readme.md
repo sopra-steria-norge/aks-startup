@@ -94,3 +94,9 @@ tf apply -input=false -auto-approve
 ## Start Azure Kubernetes Service (AKS) ##
 
 [Start AKS](aks\readme.md)
+
+
+# Tips og triks
+
+[https://kubernetes.io/docs/reference/kubectl/cheatsheet/]
+

@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aks-startup-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aks-startup-app 
+  template:
+    metadata:
+      labels:
+        app: aks-startup-app
+    spec:
+      containers:
+      - image: aksstartup.azurecr.io/aks-startup-dotnet-app:latest
+        imagePullPolicy: Always
+        name: aks-startup-app
+        ports:
+        - name: aks-startup-app
+          containerPort: 5000
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Development"          
+        - name: ASPNETCORE_URLS
+          value: "http://+:5000"          
+        - name: Logging__LogLevel__Microsoft
+          value: "Debug"          
+        - name: Logging__LogLevel__Default
+          value: "Debug"          
+        - name: SQL_CONNECTION_STRING
+          value: "Server=mssql;Database=aks-startup-dotnet-app;User Id=sa;Password=Secret1234"          
+      imagePullSecrets:
+      - name: aksstartup-acr
