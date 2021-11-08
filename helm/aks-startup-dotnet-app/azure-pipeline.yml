@@ -1,0 +1,37 @@
+name: $(Date:yyyyMMdd)$(Rev:.r)
+
+# Load secrets from Library and the Key Vault
+variables:
+  - group: aks-startup
+
+
+trigger:
+  paths:
+    include:
+      - helm/aks-startup-dotnet-app/*    
+
+steps:
+
+  - script: ls '$(System.DefaultWorkingDirectory)'
+
+- task: HelmDeploy@0
+  displayName: Helm list
+  inputs:
+    azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
+    azureResourceGroup: $(azureResourceGroup)
+    kubernetesCluster: $(kubernetesCluster)
+    command: ls
+    arguments: --all
+
+  # - bash: |
+  #     echo "terraform init" /
+  #     terraform init -input=false
+  #   displayName: Terraform Init
+  #   workingDirectory: $(workingDirectoryFolder)
+  #   failOnStderr: true
+  #   env:
+  #     ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+  #     ARM_CLIENT_ID:       $(ARM_CLIENT_ID)
+  #     ARM_CLIENT_SECRET:   $(ARM_CLIENT_SECRET)
+  #     ARM_TENANT_ID:       $(ARM_TENANT_ID)
+  

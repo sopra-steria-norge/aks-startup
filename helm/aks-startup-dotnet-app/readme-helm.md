@@ -17,7 +17,9 @@ Tjensten blir tilgjengelig på <IP>:9000.
 
 ## Installer aks-startup-dotnet-app med Helm
 
-1 - Legg til secret
+1 - Legg til secret i Kubernetes cluster
+
+Dette gjør det mulig for Kubernetes å hente container images fra det private docker registry. Blir brukt i **imagePullSecrets** i DeploymentConfig.
 
 ```bash
 
@@ -30,21 +32,26 @@ kubectl create secret docker-registry aksstartup-acr\
  --docker-username=$DOCKER_USER\
  --docker-password=$DOCKER_PASSWORD
 
-# kubectl create secret docker-registry secretname \
-#   --docker-server=myprivate.registry.com:8080 \
-#   --docker-username=myusername \
-#   --docker-password=myuserpass \
-#   --namespace=default
 ```
+
+2 - Installer aks-startup-app
 
 ```bash
+cd /helm/aks-startup-dotnet-app
 helm template aks-startup-app .
 helm install aks-startup-app .
-k get pods
-
-helm upgrade aks-startup-app . --debug
+kubectl get pods
+kubectl get services aks-startup-app
 ```
 
+3 - Oppdater aks-startup-app ved endringer
+
+```bash
+helm upgrade aks-startup-app .
+```
+
+
+-----------------
 
 Basert på 
 
