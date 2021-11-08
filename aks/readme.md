@@ -36,9 +36,7 @@ Dette vil konfigurere din lokale "**kubectl**" installasjon og gjøre det mulig 
 
 ```bash
 az login
-az account set --subscription 22481158-8cb8-4597-be0c-4913204b4544
+az account set --subscription $ARM_SUBSCRIPTION_ID
 az aks get-credentials --resource-group aks-startup-rg --name aks-startup
 kubectl get deployments --all-namespaces=true
 ```
-
-- Bytt ut subscription med din egen. (Relax, subscription over finnes ikke.)
