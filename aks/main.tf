@@ -6,8 +6,8 @@ variable "AKS_STARTUP_ACR_NAME" {
 }
 
 data "azurerm_resource_group" "main" {
-  name = "aks-startup-rg"
-  provider            = azurerm.dev
+  name     = "aks-startup-rg"
+  provider = azurerm.dev
 }
 
 resource "azurerm_container_registry" "main" {
@@ -34,5 +34,6 @@ resource "azurerm_kubernetes_cluster" "main" {
   identity {
     type = "SystemAssigned"
   }
+  
   provider = azurerm.dev
 }

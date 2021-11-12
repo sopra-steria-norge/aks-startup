@@ -1,6 +1,8 @@
 cd /d %~dp0
 echo Open Visual Studio Code Remote
 
+docker swarm init
+
 docker network create -d overlay --attachable aksstartup_common_network
 
 COPY "%USERPROFILE%\.kube\config" "%~dp0\scripts\secrets\kubeconfig"

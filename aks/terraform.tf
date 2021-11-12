@@ -1,4 +1,4 @@
-cd terraform {
+terraform {
     backend "azurerm" {
         resource_group_name  = "aks-startup-rg"
         storage_account_name = "aksstartupsttfstate"
