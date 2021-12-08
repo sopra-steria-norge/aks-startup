@@ -1,5 +1,13 @@
 # Installer aks-startup-dotnet-app med Helm
 
+## Sjekk login Kubernetes
+
+```bash
+kubectl config use-context aks-startup
+kubectl config set-context --current --namespace=default
+kubectl get pods
+```
+
 ## Få innsikt i Kubernetes med Portainer
 
 Følg instrukser på [https://github.com/portainer/k8s]
@@ -40,7 +48,8 @@ kubectl create secret docker-registry aksstartup-acr\
 cd /helm/aks-startup-dotnet-app
 helm template aks-startup-app .
 helm install aks-startup-app .
-kubectl get pods
+kubectl get pods --all-namespaces
+
 kubectl get services aks-startup-app
 ```
 
