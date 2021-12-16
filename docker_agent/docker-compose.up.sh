@@ -6,6 +6,8 @@ cd $BASEDIR
 docker rm -f aks-startup-dockeragent-1
 docker-compose -f docker-compose.yml down --remove-orphans
 
+docker swarm init
+
 docker network create -d overlay --attachable aks-startup_common_network
 
 # docker-compose -f docker-compose.yml build --progress plain --no-cache
