@@ -1,4 +1,4 @@
-FROM python:3.8-slim-buster
+FROM python:3.12.0a6-slim-bullseye
 
 RUN apt-get update
 RUN apt-get install -y git dos2unix unzip npm wget curl iputils-ping
@@ -13,7 +13,7 @@ WORKDIR /files
 ##############################################
 ### Docker CLI
 #############################################
-ARG docker_latest_version_file_arg="docker-19.03.2.tgz"
+ARG docker_latest_version_file_arg="docker-23.0.2.tgz"  
 ENV DOCKER_LATEST_VERSION_FILE=${docker_latest_version_file_arg}
 RUN echo "Download => https://download.docker.com/linux/static/stable/x86_64/${DOCKER_LATEST_VERSION_FILE}"
 RUN curl -fL https://download.docker.com/linux/static/stable/x86_64/${DOCKER_LATEST_VERSION_FILE} -o docker.tgz && \ 
@@ -22,7 +22,7 @@ RUN curl -fL https://download.docker.com/linux/static/stable/x86_64/${DOCKER_LAT
 ##############################################
 ### Terraform
 #############################################
-ARG TERRAFORM_VERSION=0.14.6
+ARG TERRAFORM_VERSION=1.4.2
 RUN echo "Download => https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
 RUN curl -fL https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -o terraform_linux_amd64.zip && \
     unzip -q terraform_linux_amd64.zip -d /usr/bin && \
@@ -31,7 +31,7 @@ RUN curl -fL https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terra
 ##############################################
 ### tflint
 #############################################
-ARG TFLINT_VERSION=0.24.1
+ARG TFLINT_VERSION=0.45.0
 RUN echo "Download =>   v${TFLINT_VERSION}/tflint_linux_amd64.zip"
 RUN curl -fL https://github.com/terraform-linters/tflint/releases/download/v${TFLINT_VERSION}/tflint_linux_amd64.zip -o tflint.zip  && \
     unzip -q tflint.zip -d /usr/bin && \
