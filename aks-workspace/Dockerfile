@@ -1,7 +1,7 @@
-FROM python:3.12.0a6-slim-bullseye
+FROM python:3.11.2-bullseye
 
 RUN apt-get update
-RUN apt-get install -y git dos2unix unzip npm wget curl iputils-ping
+RUN apt-get install -y git dos2unix unzip npm wget curl iputils-ping libffi-dev
 
 
 WORKDIR /app
